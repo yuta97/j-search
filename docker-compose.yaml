@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  mysql_db_j:
+    container_name: "mysql_db_j"
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+    environment: # Set up mysql database name and password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: employees
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    networks:
+      - app-tier
+
+  python3_j:
+    restart: always
+    build: .
+    ports:
+      - '3000:3000'
+      - '5000:5000'
+    container_name: "python3_j"
+    working_dir: "/root/"
+    tty: true
+    stdin_open: true
+    depends_on:
+      - mysql_db_j
+    networks:
+      - app-tier
+    volumes:
+      - .:/root/app/
+    # command: python3 app/app.py
+    command: >
+      bash -c "python3 app/create_teamid.py
+      && python3 app/create_result.py
+      && python3 app/app.py
+      "
+    
+
+networks:
+  app-tier:
+    driver: bridge
+
+
