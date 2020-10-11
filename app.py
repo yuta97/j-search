@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import json
 import mysql.connector as mysql
 from dbconect import dbConnection
 
 app = Flask(__name__)
+CORS(app)
 app.config['JSON_AS_ASCII'] = False 
 app.config["JSON_SORT_KEYS"] = False 
 
