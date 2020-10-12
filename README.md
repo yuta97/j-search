@@ -1,5 +1,6 @@
 # J検索くんAPI
-- サッカーJリーグのデータを[フロント側]()に渡す、WebAPIです。
+- サッカーJリーグのデータを[フロント側](https://github.com/yuta97/j-search-front)に渡す、WebAPIです。
+- [こちらから検索サイトに飛べます](http://j-search.s3-website-ap-northeast-1.amazonaws.com/)
 - フロントの検索画面
 <img src="jsearch-front.png" width="100px">
 - APIの画像
