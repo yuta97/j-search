@@ -19,9 +19,7 @@ src
  ├── app.py　(apiを作成)
  ├── create_result.py (サイトをスクレイピングして、DB作成)
  ├── create_teamid.py (teamidのDB作成)
- <!-- ├── create_winrecords.py　あとでgit ignore する -->
  ├── dbconect.py (DBとの接続設定)
- <!-- ├── mysqlres.py(あとで消す) -->
  ├── docker-compose.yaml
  ├── Dockerfile
  ├── requirements.txt
