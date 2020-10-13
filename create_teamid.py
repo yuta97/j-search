@@ -54,13 +54,9 @@ j_teamlists = {
   40: "ＦＣ琉球",   
 }
 	
-
-
 for team_id ,team_name in j_teamlists.items():   
     cursor.execute("INSERT INTO teamId (team_id ,team_name) VALUES (%s,%s);", (team_id ,team_name))
 
 cursor.close()
-
 conn.commit()
-
 conn.close()

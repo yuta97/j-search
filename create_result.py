@@ -9,7 +9,6 @@ def match_result(url,result_team_list,team_num):
   # Ex. result_team_list = ['チーム名',0,1,3,3,0,・・・]
   html = requests.get(url)
   soup = BeautifulSoup(html.text, "html.parser")
-
   base = soup.find("tbody")
   tr = base.find_all("tr", recursive=False)
   if result_team_list == []:
@@ -20,15 +19,15 @@ def match_result(url,result_team_list,team_num):
   for match in matches:
     match = match.find("table").find_all("tr")[1]
     match_result = match.find("th").text
-    if '●' in match_result:
+    if '●' in match_result: #lose
       result_team_list.append(0)
-    elif '△' in match_result:
+    elif '△' in match_result: #draw
       result_team_list.append(1)
-    elif '○' in match_result:
+    elif '○' in match_result: #win
       result_team_list.append(3)
 
-number = [0,9,18,27,'' ]
-result_list = []
+number = [0,9,18,27,'' ] #pageを変えるオプション。1ページに8節しかない
+result_list = [] #result_team_listをいれる配列
 options = [
   [2019,460],[2018,444],[2017,428]
 ]
@@ -49,15 +48,12 @@ for yearId, competitionId in options:
     # print(len(result_team_list))
   result_list.append(result_list＿year)
 
-
-
 #mysql
 
 conn = dbConnection()
 conn.ping(reconnect=True)
 cursor = conn.cursor()
 cursor.execute("use employees;")
-
 
 try:
     cursor.execute("create table matchresult (id int auto_increment primary key, year int, rank int, section int, team_name varchar(100), result int);")
