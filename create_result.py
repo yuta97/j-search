@@ -5,6 +5,8 @@ import mysql.connector as mysql
 from dbconect import dbConnection
 
 def match_result(url,result_team_list,team_num):
+  # urlをスクレイピングしlistに試合結果を挿入する関数。
+  # Ex. result_team_list = ['チーム名',0,1,3,3,0,・・・]
   html = requests.get(url)
   soup = BeautifulSoup(html.text, "html.parser")
 
@@ -37,8 +39,8 @@ options = [
 for yearId, competitionId in options:
   # time.sleep(5) # 一度の大量アクセスを防ぐ
   result_list＿year= [yearId]
-  # for team_num in range(1,3):
   for team_num in range(1,19):
+    # チーム数（18）分ループを回す
     result_team_list = []
     for n in number:
       url = f"https://data.j-league.or.jp/SFRT05/?search=search&yearId={yearId}&competitionId={competitionId}&currIdx={n}"
@@ -71,7 +73,6 @@ for list_byyear in result_list:
     for result_section in result_sections:
       section = index 
       index += 1
-      # print(year,section ,team_name ,result_section)
       cursor.execute("INSERT INTO matchresult (year ,rank ,section ,team_name ,result ) VALUES (%s,1,%s,%s,%s);", (year,section ,team_name ,result_section))
 
 
@@ -106,14 +107,10 @@ for list_byyear in result_list:
         else: # point == 0,1
           if winrecords_num >= 2:
             winrecords_stop = section-1
-            cursor.execute("INSERT INTO winrecords (year ,rank ,team_name , section_from, section_to, continuou_record) VALUES (%s,1,%s,%s,%s,    %s);", (year,team_name,winrecords_start,winrecords_stop,winrecords_num))
+            cursor.execute("INSERT INTO winrecords (year ,rank ,team_name , section_from, section_to, continuou_record) VALUES (%s,1,%s,%s,%s,%s);", (year,team_name,winrecords_start,winrecords_stop,winrecords_num))
           winrecords_num = 0
           winrecords_start = 0
           winrecords_stop = 0
 cursor.close()
 conn.commit()
 conn.close()
-
-  
-
-
